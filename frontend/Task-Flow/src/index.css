@@ -1,0 +1,12 @@
+@import "tailwindcss"; /* pulls in base + components + utilities */
+
+@layer base {
+  html {
+    font-family: var(--font-display);
+  }
+
+  body {
+    background-color: #fcfbfc;
+    overflow-x: hidden;
+  }
+}

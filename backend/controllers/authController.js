@@ -7,8 +7,8 @@ const generateToken = (userId) => {
   return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: "7d" });
 };
 
-// @desc Register a new user
-// @route POST /api/auth/register
+// @desc   Register a new user
+// @route  POST /api/auth/register
 // @access Public
 const registerUser = async (req, res) => {
   const { name, email, password, profileImageUrl, adminInviteToken } = req.body;
@@ -48,8 +48,8 @@ const registerUser = async (req, res) => {
   });
 };
 
-// @desc Login user
-// @route POST/api/auth/login
+// @desc   Login user
+// @route  POST/api/auth/login
 // @access Public
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
@@ -73,8 +73,8 @@ const loginUser = async (req, res) => {
   });
 };
 
-// @desc Get User Profile
-// @route Get /api/auth/profile
+// @desc   Get User Profile
+// @route  Get /api/auth/profile
 // @access Private (Requires JWT)
 const getUserProfile = async (req, res) => {
   const user = await User.findById(req.user.id).select("-password");
@@ -85,7 +85,7 @@ const getUserProfile = async (req, res) => {
   res.json(user);
 };
 
-// @desc Update user profile
+// @desc   Update user profile
 // @route  PUT /api/auth/profile
 // @access Private (Requires JWT)
 const updateUserProfile = async (req, res) => {
@@ -113,17 +113,5 @@ const updateUserProfile = async (req, res) => {
     token: generateToken(updatedUser._id),
   });
 };
-
-router.post("/upload-image", upload.single("image"), (req, res) => {
-  if (!req.file) {
-    res.status(400).json({ message: "No file Uploaded!" });
-  }
-
-  const imageUrl = `${req.protocol}://${req.get("host")}/uploads/${
-    req.file.filename
-  }`;
-
-  res.status(200).json({ imageUrl });
-});
 
 module.exports = { registerUser, loginUser, getUserProfile, updateUserProfile };

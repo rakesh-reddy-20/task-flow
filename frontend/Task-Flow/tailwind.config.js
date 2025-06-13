@@ -9,6 +9,9 @@ export default {
       fontFamily: {
         display: ["Poppins", "sans-serif"],
       },
+      colors: {
+        primary: "#3b82f6", // Tailwind's default blue-500 or customize as needed
+      },
     },
   },
   plugins: [],

@@ -1,5 +1,5 @@
 import React from "react";
-import UI_IMG from "../../assets/images/auth-img-1.png";
+import UI_IMG from "../../assets/images/auth-img.png";
 
 function AuthLayout({ children }) {
   return (
@@ -11,7 +11,7 @@ function AuthLayout({ children }) {
       </div>
 
       {/* Right side - Background Image */}
-      <div className="hidden md:flex w-[40vw] h-screen items-center justify-center bg-blue-50 bg-[url('/bg-img.png')] bg-cover bg-no-repeat bg-center overflow-hidden p-8">
+      <div className="hidden md:flex w-[40vw] h-screen items-center justify-center bg-blue-50 bg-[url('/bg-img-1.png')] bg-cover bg-no-repeat bg-center overflow-hidden p-8">
         <img src={UI_IMG} className="w-64 lg:w-[90%]" alt="" />
       </div>
     </div>

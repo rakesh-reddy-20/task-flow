@@ -1,16 +1,12 @@
 /** @type {import('tailwindcss').Config} */
+import defaultTheme from "tailwindcss/defaultTheme";
+
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      spacing: {
-        72: "18rem",
-      },
       fontFamily: {
-        display: ["Poppins", "sans-serif"],
-      },
-      colors: {
-        primary: "#3b82f6", // Tailwind's default blue-500 or customize as needed
+        display: ["Poppins", ...defaultTheme.fontFamily.sans],
       },
     },
   },

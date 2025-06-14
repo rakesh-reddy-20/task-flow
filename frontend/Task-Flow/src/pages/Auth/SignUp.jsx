@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import AuthLayout from "../../components/layouts/AuthLayout";
 import { validateEmail } from "../../utils/helper";
 import { ProfilePhotoSelector } from "../../components/Inputs/ProfilePhotoSelector";
 import Input from "../../components/Inputs/Input";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axiosInstance from "./../../utils/axiosInstance";
+import { API_PATHS } from "../../utils/apiPaths";
+import uploadImage from "../../utils/uploadImage";
+import { UserContext } from "./../../context/userContext";
 
 const SignUp = () => {
   const [profilePic, setProfilePic] = useState(null);
@@ -14,9 +18,14 @@ const SignUp = () => {
 
   const [error, setError] = useState(null);
 
+  const { updateUser } = useContext(UserContext);
+  const navigate = useNavigate();
+
   // Handle SignUp Form Submit
   const handleSignUp = async (e) => {
     e.preventDefault();
+
+    let profileImageUrl = "";
 
     if (!fullName.trim()) {
       setError("Please enter your full name!");
@@ -35,18 +44,52 @@ const SignUp = () => {
 
     setError("");
 
-    // Sign Up API call here
+    try {
+      // Upload image if present
+      if (profilePic) {
+        const imgUploadRes = await uploadImage(profilePic);
+        profileImageUrl = imgUploadRes.imageurl || "";
+      }
+
+      const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
+        name: fullName,
+        email,
+        password,
+        profileImageUrl,
+        adminInviteToken,
+      });
+
+      const { token, role } = response.data;
+
+      if (token) {
+        localStorage.setItem("token", token);
+        updateUser({ token, role }); // Set user in context
+
+        // Redirect based on role
+        if (role === "admin") {
+          navigate("/admin/dashboard");
+        } else {
+          navigate("/user/dashboard");
+        }
+      }
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
+        setError("Something went wrong. Please try again!");
+      }
+    }
   };
 
   return (
     <AuthLayout>
       <div className="lg:w-[100%] h-auto md:h-full mt-10 md:md-0 flex flex-col justify-center">
-        <h3 className="text-xl font-semibold text-black">Create a Account</h3>
+        <h3 className="text-xl font-semibold text-black">Create an Account</h3>
         <p className="text-xs text-slate-700 mt-[5px] mb-6">
           Join us today by entering your details below.
         </p>
 
-        <form action="" onSubmit={handleSignUp}>
+        <form onSubmit={handleSignUp}>
           <ProfilePhotoSelector image={profilePic} setImage={setProfilePic} />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -79,13 +122,15 @@ const SignUp = () => {
               type="text"
             />
           </div>
+
           {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
 
-          <button type="submit" className="btn-primary">
+          <button type="submit" className="btn-primary mt-4">
             SIGN UP
           </button>
+
           <p className="text-[13px] text-slate-800 mt-3">
-            Already have an account? {""}
+            Already have an account?{" "}
             <Link className="font-medium text-blue-500 underline" to="/login">
               Login
             </Link>

@@ -9,10 +9,8 @@ const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (user) return;
-
-    const accessToken = localStorage.getItem("token");
-    if (!accessToken) {
+    const token = localStorage.getItem("token");
+    if (!token) {
       setLoading(false);
       return;
     }
@@ -22,7 +20,7 @@ const UserProvider = ({ children }) => {
         const response = await axiosInstance.get(API_PATHS.AUTH.GET_PROFILE);
         setUser(response.data);
       } catch (error) {
-        console.error("User not authenticated!", error);
+        console.error("Error fetching user profile", error);
         clearUser();
       } finally {
         setLoading(false);
@@ -34,8 +32,9 @@ const UserProvider = ({ children }) => {
 
   const updateUser = (userData) => {
     setUser(userData);
-    localStorage.setItem("token", userData.token);
-    setLoading(false);
+    if (userData.token) {
+      localStorage.setItem("token", userData.token);
+    }
   };
 
   const clearUser = () => {

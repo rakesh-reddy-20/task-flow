@@ -46,11 +46,16 @@ export const SideMenu = ({ activeMenu }) => {
           />
         </div>
         {user?.role === "admin" && (
-          <div className="text-[10px] font-medium text-white bg-blue-700 px-3 py-0.5 rounded mt-1">
+          <div className="text-[10px] font-medium text-white bg-red-500 px-3 py-0.5 rounded mt-2">
             Admin
           </div>
         )}
-        <h5 className="text-gray-950 font-medium leading-6 mt-3">
+        {user?.role === "member" && (
+          <div className="text-[10px] font-medium text-white bg-red-500 px-3 py-0.5 rounded mt-2">
+            Admin
+          </div>
+        )}
+        <h5 className="text-gray-950 font-medium leading-6 mt-2">
           {user?.name || ""}
         </h5>
         <p className="text-[12px] text-gray-500">{user?.email || ""}</p>

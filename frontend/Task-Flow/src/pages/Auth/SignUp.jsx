@@ -4,10 +4,10 @@ import { validateEmail } from "../../utils/helper";
 import { ProfilePhotoSelector } from "../../components/Inputs/ProfilePhotoSelector";
 import Input from "../../components/Inputs/Input";
 import { Link, useNavigate } from "react-router-dom";
-import axiosInstance from "./../../utils/axiosInstance";
+import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import uploadImage from "../../utils/uploadImage";
-import { UserContext } from "./../../context/userContext";
+import { UserContext } from "../../context/userContext";
 
 const SignUp = () => {
   const [profilePic, setProfilePic] = useState(null);
@@ -15,40 +15,28 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [adminInviteToken, setAdminInviteToken] = useState("");
-
   const [error, setError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { updateUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  // Handle SignUp Form Submit
   const handleSignUp = async (e) => {
     e.preventDefault();
+    if (!fullName.trim()) return setError("Please enter your full name!");
+    if (!validateEmail(email)) return setError("Please enter a valid email!");
+    if (!password || password.length < 8)
+      return setError("Password must be at least 8 characters");
+
+    setError("");
+    setIsSubmitting(true);
 
     let profileImageUrl = "";
 
-    if (!fullName.trim()) {
-      setError("Please enter your full name!");
-      return;
-    }
-
-    if (!validateEmail(email)) {
-      setError("Please enter a valid email address!");
-      return;
-    }
-
-    if (!password) {
-      setError("Please enter the password!");
-      return;
-    }
-
-    setError("");
-
     try {
-      // Upload image if present
       if (profilePic) {
         const imgUploadRes = await uploadImage(profilePic);
-        profileImageUrl = imgUploadRes.imageurl || "";
+        profileImageUrl = imgUploadRes.imageUrl || "";
       }
 
       const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
@@ -63,33 +51,27 @@ const SignUp = () => {
 
       if (token) {
         localStorage.setItem("token", token);
-        updateUser({ token, role }); // Set user in context
-
-        // Redirect based on role
-        if (role === "admin") {
-          navigate("/admin/dashboard");
-        } else {
-          navigate("/user/dashboard");
-        }
+        updateUser({ token, role });
+        navigate(role === "admin" ? "/admin/dashboard" : "/user/dashboard");
       }
     } catch (error) {
-      if (error.response && error.response.data.message) {
-        setError(error.response.data.message);
-      } else {
-        setError("Something went wrong. Please try again!");
-      }
+      setError(error.response?.data?.message || "Something went wrong!");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
     <AuthLayout>
-      <div className="lg:w-[100%] h-auto md:h-full mt-10 md:md-0 flex flex-col justify-center">
-        <h3 className="text-xl font-semibold text-black">Create an Account</h3>
-        <p className="text-xs text-slate-700 mt-[5px] mb-6">
+      <div className="max-w-3xl mx-auto flex flex-col">
+        <h3 className="text-xl font-semibold text-black mt-4">
+          Create an Account
+        </h3>
+        <p className="text-xs text-slate-700 mt-1 mb-4">
           Join us today by entering your details below.
         </p>
 
-        <form onSubmit={handleSignUp}>
+        <form onSubmit={handleSignUp} className="space-y-4 pb-10">
           <ProfilePhotoSelector image={profilePic} setImage={setProfilePic} />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -119,14 +101,18 @@ const SignUp = () => {
               onChange={({ target }) => setAdminInviteToken(target.value)}
               label="Admin Invite Token"
               placeholder="6 Digit Admin Code"
-              type="text"
+              type="password"
             />
           </div>
 
-          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+          {error && <p className="text-red-500 text-sm">{error}</p>}
 
-          <button type="submit" className="btn-primary mt-4">
-            SIGN UP
+          <button
+            type="submit"
+            className="btn-primary mt-4 disabled:opacity-50"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Signing Up..." : "SIGN UP"}
           </button>
 
           <p className="text-[13px] text-slate-800 mt-3">

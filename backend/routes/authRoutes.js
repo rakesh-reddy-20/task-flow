@@ -9,6 +9,7 @@ const {
   getUserProfile,
   updateUserProfile,
 } = require("../controllers/authController");
+
 const { protect } = require("../middlewares/authMiddleware");
 
 // Auth Routes

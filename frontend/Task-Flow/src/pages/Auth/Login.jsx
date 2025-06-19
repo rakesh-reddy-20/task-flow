@@ -2,9 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthLayout from "../../components/layouts/AuthLayout";
 import Input from "../../components/Inputs/Input";
-import SignUp from "./SignUp";
 import { validateEmail } from "../../utils/helper";
-import axios from "axios";
 import axiosInstance from "./../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import { UserContext } from "./../../context/userContext";
@@ -17,7 +15,6 @@ const Login = () => {
   const { updateUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  // Handle Login Form Submit
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -33,31 +30,25 @@ const Login = () => {
 
     setError("");
 
-    // Login API call
     try {
       const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
         email,
         password,
       });
+
       const { token, role } = response.data;
 
       if (token) {
         localStorage.setItem("token", token);
         updateUser(response.data);
 
-        // Redirect based on role
-        if (role === "admin") {
-          navigate("/admin/dashboard");
-        } else {
-          navigate("/user/dashboard");
-        }
+        navigate(role === "admin" ? "/admin/dashboard" : "/user/dashboard");
       }
     } catch (error) {
-      if (error.response && error.response.data.message) {
-        setError(error.response.data.message);
-      } else {
-        setError("Something went wrong. Please try again!");
-      }
+      setError(
+        error.response?.data?.message ||
+          "Something went wrong. Please try again!"
+      );
     }
   };
 
@@ -87,11 +78,11 @@ const Login = () => {
 
           {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
 
-          <button type="submit" className="btn-primary">
+          <button type="submit" className="btn-primary mt-4">
             LOGIN
           </button>
           <p className="text-[13px] text-slate-800 mt-3">
-            Don't have an account? {""}
+            Don't have an account?{" "}
             <Link className="font-medium text-blue-500 underline" to="/signup">
               SignUp
             </Link>

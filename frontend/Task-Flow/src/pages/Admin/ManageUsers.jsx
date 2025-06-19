@@ -4,6 +4,7 @@ import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import { LuFileSpreadsheet } from "react-icons/lu";
 import UserCard from "../../components/Cards/UserCard";
+import { motion } from "framer-motion";
 
 const ManageUsers = () => {
   const [allUsers, setAllUsers] = useState([]);
@@ -68,8 +69,15 @@ const ManageUsers = () => {
           </button>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-          {allUsers?.map((user) => (
-            <UserCard key={user._id} userInfo={user} />
+          {allUsers?.map((user, index) => (
+            <motion.div
+              key={user._id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+            >
+              <UserCard userInfo={user} />
+            </motion.div>
           ))}
         </div>
       </div>

@@ -54,14 +54,14 @@ npm install
 
 Create a .env file in /backend with:
 
-PORT=8080 // The port on which your Express backend server will run
-JWT_SECRET= // Secret key used to sign and verify JWT tokens for user authentication
-CLIENT_URL=http://localhost:5173 // Frontend URL – used for enabling CORS and possibly email links
-MONGO_URI= // MongoDB connection string for connecting your backend to the database
-ADMIN_INVITE_TOKEN= // A secure token used to restrict admin registration/invite-only access
-CLOUD_NAME= // Your Cloudinary cloud name – used for uploading and managing images/files
-CLOUD_API_KEY= // Your Cloudinary API key for authentication when uploading files
-CLOUD_API_SECRET= // Your Cloudinary API secret – NEVER expose this on the frontend
+PORT=8080                 # The port on which your Express backend server will run
+JWT_SECRET=              # Secret key used to sign and verify JWT tokens for user authentication
+CLIENT_URL=http://localhost:5173  # Frontend URL – used for enabling CORS and possibly email links
+MONGO_URI=               # MongoDB connection string for connecting your backend to the database
+ADMIN_INVITE_TOKEN=      # A secure token used to restrict admin registration/invite-only access
+CLOUD_NAME=              # Your Cloudinary cloud name – used for uploading and managing images/files
+CLOUD_API_KEY=           # Your Cloudinary API key for authentication when uploading files
+CLOUD_API_SECRET=        # Your Cloudinary API secret – NEVER expose this on the frontend
 
 
 👨‍💻 Author

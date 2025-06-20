@@ -1,82 +1,85 @@
-# 🚀 TaskFlow
+<h1 align="center">🚀 TaskFlow</h1> <p align="center"> A robust, full-stack task and project management tool inspired by <strong>Jira</strong>, built with the <strong>MERN</strong> stack. </p> <p align="center"> <img src="https://img.shields.io/badge/Status-Production-green?style=flat-square"/> <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square"/> <img src="https://img.shields.io/badge/PRs-Welcome-brightgreen?style=flat-square"/> </p>
 
-A simple and powerful task & project management application inspired by tools like Jira.  
-Built with the **MERN stack**, TaskFlow helps teams organize tasks, assign responsibilities, and track project progress efficiently.
+🌐 Live Demo
+🔗 Frontend: taskflow-client.vercel.app
 
----
+🔗 Backend API: taskflow-api.onrender.com
 
-## 📌 Project Status
+📌 Overview
+TaskFlow is a team-centric task and project tracker that helps organizations manage daily work, collaborate effectively, and meet deadlines — with simplicity and speed.
 
-> ⚠️ **This project is currently under active development.**  
-> I'm continuously working on new features, improving the UI/UX, and adding advanced task management capabilities. Stay tuned for frequent updates!
+Core Highlights:
+✅ Role-Based Dashboards (Admin/User)
+✅ Task Lifecycle (To Do → In Progress → Done)
+✅ Assign Users, Add Todos, Comments & Attachments
+✅ Admin Controls & Analytics
+✅ Responsive UI with Tailwind CSS
 
----
+🧰 Tech Stack
+| Area         | Tech                                             |
+| ------------ | ------------------------------------------------ |
+| **Frontend** | React, Vite, Tailwind CSS, Axios                 |
+| **Backend**  | Node.js, Express.js, JWT                         |
+| **Database** | MongoDB, Mongoose                                |
+| **Other**    | React Router, ESLint |
 
-## 🧰 Tech Stack
 
-- **Frontend:** React, Vite, Tailwind CSS
-- **Backend:** Node.js, Express.js
-- **Database:** MongoDB with Mongoose
-- **Authentication:** JWT, Role-based Access
-- **Other Tools:** React Router, Axios, ESLint
-
----
-
-## 📁 Folder Structure
+📁 Project Structure
 
 taskflow/
-├── backend/ # Express backend
+├── backend/               # Node.js + Express + MongoDB (API & Auth)
 ├── frontend/
-│ └── Task-Flow/ # React frontend (Vite setup)
+│   └── Task-Flow/         # React App (Vite + Tailwind)
 ├── .gitignore
 ├── README.md
 
----
+🚀 Features
+🔐 Authentication (JWT-based)
+👥 User Roles (Admin & Member)
+📝 Task Management (Create, Assign, Update, Delete)
+✅ Checklist / Subtasks
+📂 File URL Attachments
+📊 Admin Dashboard Metrics
+📬 Email Notifications (Upcoming)
+💬 Comments (Upcoming)
 
-## 🚧 Features (Work in Progress)
-
-- [x] Project structure and setup
-- [x] Auth system (register/login)
-- [ ] Role-based dashboards (admin/user)
-- [ ] Task creation & assignment
-- [ ] Task status tracking (To Do → In Progress → Done)
-- [ ] User management (Admin)
-- [ ] Email notifications
-- [ ] Comments & collaboration tools
-
----
-
-## 🛠️ Getting Started
-
-### 🔹 1. Clone the Repository
-
-```bash
+🛠️ Getting Started
+1. Clone the Repository
 git clone https://github.com/rakesh-reddy-20/task-flow.git
 cd task-flow
 
- 2. Install Dependencies
-
-Backend:
+3. Setup Backend
 cd backend
 npm install
-Frontend:
-cd ../frontend/Task-Flow
-npm install
 
-🔹 3. Run the App
-Backend:
-npm run dev
-Frontend:
-npm run dev
+Create a .env file in /backend with:
 
-🧪 Environment Variables
-Create .env files in both backend/ and frontend/Task-Flow/ as needed.
-You can refer to .env.example (to be added after project is completed) for required variables.
+PORT=8080
+# The port on which your Express backend server will run
 
-🙌 Contributing
-Pull requests and suggestions are welcome!
-Feel free to open issues if you spot bugs or have feature ideas.
+JWT_SECRET=
+# Secret key used to sign and verify JWT tokens for user authentication
+
+CLIENT_URL=http://localhost:5173
+# Frontend URL – used for enabling CORS and possibly email links
+
+MONGO_URI=
+# MongoDB connection string for connecting your backend to the database
+
+ADMIN_INVITE_TOKEN=
+# A secure token used to restrict admin registration/invite-only access
+
+CLOUD_NAME=
+# Your Cloudinary cloud name – used for uploading and managing images/files
+
+CLOUD_API_KEY=
+# Your Cloudinary API key for authentication when uploading files
+
+CLOUD_API_SECRET=
+# Your Cloudinary API secret – NEVER expose this on the frontend
+
 
 👨‍💻 Author
 R Rakesh Reddy
-```
+
+📫 Email: rakeshreddy0263@gmail.com

@@ -55,7 +55,7 @@ npm install
 Create a .env file in /backend with:
 
 PORT=8080
-JWT_SECRET=your_jwt_secret_here
+JWT_SECRET=your_jwt_secret_here /n
 CLIENT_URL=http://localhost:5173
 MONGO_URI=your_mongodb_connection_string
 ADMIN_INVITE_TOKEN=your_secure_token 

@@ -33,7 +33,23 @@ Dotenv for Environment Config
 🗂️ Environment Variables
 Set the following environment variables in your .env file for the backend:
 
-<pre> <code> PORT=8080 # The port on which your Express backend server will run JWT_SECRET=your_jwt_secret # Secret key used to sign and verify JWT tokens for user authentication CLIENT_URL=http://localhost:5173 # Frontend URL – used for enabling CORS and email redirection MONGO_URI=your_mongodb_connection_uri # MongoDB connection string for the backend database ADMIN_INVITE_TOKEN=your_invite_token # Used to allow only invited admins to register CLOUD_NAME=your_cloudinary_name # Your Cloudinary cloud name (for image/file uploads) CLOUD_API_KEY=your_cloudinary_key # Your Cloudinary API key CLOUD_API_SECRET=your_cloudinary_secret # Cloudinary API secret – keep this private </code> </pre>
+PORT=8080 — The port on which your Express backend server will run
+
+JWT_SECRET=your_jwt_secret — Secret key used to sign and verify JWT tokens
+
+CLIENT_URL=http://localhost:5173 — Frontend URL for CORS and email redirection
+
+MONGO_URI=your_mongodb_connection_uri — MongoDB connection string for the backend
+
+ADMIN_INVITE_TOKEN=your_invite_token — Invite-only token for admin registration
+
+Cloudinary (for file uploads):
+
+CLOUD_NAME=your_cloudinary_name — Your Cloudinary cloud name
+
+CLOUD_API_KEY=your_cloudinary_key — Your Cloudinary API key
+
+CLOUD_API_SECRET=your_cloudinary_secret — Cloudinary API secret (keep this private)
 
 🧑‍💻 Author
 TaskFlow was built with passion and precision by R Rakesh Reddy.

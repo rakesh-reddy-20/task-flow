@@ -1,4 +1,4 @@
-export const BASE_URL = "https://task-flow-iv6f.onrender.com";
+export const BASE_URL = "http://localhost:8080";
 
 // utils/apiPaths.js
 export const API_PATHS = {

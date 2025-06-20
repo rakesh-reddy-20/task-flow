@@ -52,7 +52,7 @@ export const SideMenu = ({ activeMenu }) => {
         )}
         {user?.role === "member" && (
           <div className="text-[10px] font-medium text-white bg-red-500 px-3 py-0.5 rounded mt-2">
-            Admin
+            Member
           </div>
         )}
         <h5 className="text-gray-950 font-medium leading-6 mt-2">

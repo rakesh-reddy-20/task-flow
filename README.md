@@ -54,14 +54,7 @@ npm install
 
 Create a .env file in /backend with:
 
-PORT=8080
-JWT_SECRET=your_jwt_secret_here /n
-CLIENT_URL=http://localhost:5173
-MONGO_URI=your_mongodb_connection_string
-ADMIN_INVITE_TOKEN=your_secure_token 
-CLOUD_NAME=your_cloudinary_cloud_name 
-CLOUD_API_KEY=your_cloudinary_api_key 
-CLOUD_API_SECRET=your_cloudinary_api_secret
+<pre> ## 🔐 Environment Variables To run the project locally, create a `.env` file with the following variables: ```env PORT=8080 # The port on which your Express backend server will run JWT_SECRET=your_jwt_secret # Secret key used to sign and verify JWT tokens for user authentication CLIENT_URL=http://localhost:5173 # Frontend URL – used for enabling CORS and email redirection MONGO_URI=your_mongodb_connection_uri # MongoDB connection string for the backend database ADMIN_INVITE_TOKEN=your_invite_token # Used to allow only invited admins to register CLOUD_NAME=your_cloudinary_name # Your Cloudinary cloud name (for image/file uploads) CLOUD_API_KEY=your_cloudinary_key # Your Cloudinary API key CLOUD_API_SECRET=your_cloudinary_secret # Cloudinary API secret – keep this private ``` </pre>
 
 
 👨‍💻 Author
